@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Tohfa</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="privacy_statement">سياسة الخصوصية والإستخدام</string>
+    <string name="contactus">التواصل معنا</string>
+    <string name="contact_us">إتصل بنا</string>
+    <string name="about">عن التطبيق</string>
+    <string name="update_pass">تحديث كلمة المرور</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="account">الحساب</string>
+    <string name="update_acc_info">تحديث معلومات الحساب</string>
+    <string name="title_test">toolbar_title</string>
+    <string name="toolbaricon">toolbaricon</string>
+    <string name="delete">delete</string>
+</resources>
