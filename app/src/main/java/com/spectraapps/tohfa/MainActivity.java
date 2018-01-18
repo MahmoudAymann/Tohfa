@@ -1,5 +1,6 @@
 package com.spectraapps.tohfa;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,17 +17,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.spectraapps.tohfa.bottomtabscreens.cart.Cart;
+import com.spectraapps.tohfa.bottomtabscreens.home.Home;
+import com.spectraapps.tohfa.bottomtabscreens.notification.Notification;
+import com.spectraapps.tohfa.bottomtabscreens.profile.Profile;
+
 import java.util.ArrayList;
 
 import devlight.io.library.ntb.NavigationTabBar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    AdapterMainViewPager mAdapterMainViewPager;
-    ViewPager mViewPager;
     Toolbar mToolBar;
-    TextView mToolbarText;
-    ImageView mToolbarIcon;
+    public static TextView mToolbarText;
     protected DrawerLayout mDrawer;
     protected NavigationView navigationView;
 
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity
         mToolbarText = findViewById(R.id.toolbar_title);
         mToolbarText.setText("القائمة الرئيسية");
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_frameLayout, new Home()).commit();
+
         initUI();
 
         mDrawer = findViewById(R.id.drawer_layout);
@@ -55,9 +61,6 @@ public class MainActivity extends AppCompatActivity
 
     }//end onCreate
     private void initUI() {
-        mViewPager = findViewById(R.id.viewPager);
-        mAdapterMainViewPager = new AdapterMainViewPager(getSupportFragmentManager());
-        mViewPager.setAdapter(mAdapterMainViewPager);
 
         final String[] colors = getResources().getStringArray(R.array.default_preview);
 
@@ -67,9 +70,6 @@ public class MainActivity extends AppCompatActivity
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_person_black_24dp),
                         Color.parseColor(colors[0]))
-                        //.selectedIcon(getResources().getDrawable(R.drawable.ic_sixth))
-                        //.title("Heart")
-                        //.badgeTitle("NTB")
                         .build()
         );
         models.add(
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity
                         getResources().getDrawable(R.drawable.ic_notifications_black_24dp),
                         Color.parseColor(colors[0]))
                         .selectedIcon(getResources().getDrawable(R.drawable.ic_notify_selected_black_24dp))
-                        //.title("Cup")
                         .badgeTitle("5")
                         .build()
         );
@@ -85,49 +84,25 @@ public class MainActivity extends AppCompatActivity
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_cart_24dp),
                         Color.parseColor(colors[0]))
-//                        .selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
-                        //.title("Flag")
-                        //.badgeTitle("icon")
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_home_black_24dp),
                         Color.parseColor(colors[0]))
-                        //.selectedIcon(getResources().getDrawable(R.drawable.ic_eighth))
-                        //.title("Medal")
-                        //.badgeTitle("777")
                         .build()
         );
 
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(mViewPager, 3);
         navigationTabBar.setOnTabBarSelectedIndexListener(new NavigationTabBar.OnTabBarSelectedIndexListener() {
             @Override
             public void onStartTabSelected(NavigationTabBar.Model model, int index) {
-
+                beginFragmentTransactions(index);
             }
 
             @Override
             public void onEndTabSelected(NavigationTabBar.Model model, int index) {
                 addToolbarTitleAndIcons(index);
-            }
-        });
-
-        navigationTabBar.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
-                addToolbarTitleAndIcons(position);
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-                navigationTabBar.getModels().get(position).hideBadge();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(final int state) {
-
             }
         });
 
@@ -152,8 +127,28 @@ public class MainActivity extends AppCompatActivity
         navigationTabBar.setBadgeSize(30);
     }//end initUi
 
-    private void addToolbarTitleAndIcons(int index) {
+    private void beginFragmentTransactions(int index) {
+        switch (index) {
+            case 0:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frameLayout, new Profile()).commit();
+                break;
+            case 1:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frameLayout, new Notification()).commit();
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frameLayout, new Cart()).commit();
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_frameLayout, new Home()).commit();
+                break;
+        }//end switch
+    }
 
+    private void addToolbarTitleAndIcons(int index) {
         switch (index){
             case 0:
                 mToolbarText.setText("الملف الشخصي");

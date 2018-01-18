@@ -2,40 +2,45 @@ package com.spectraapps.tohfa.product;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.spectraapps.tohfa.R;
-import com.spectraapps.tohfa.bottomtabscreens.home.HomeData;
-import com.spectraapps.tohfa.bottomtabscreens.home.HomeRecyclerAdapter;
+import com.spectraapps.tohfa.product.productdetail.ProductDetailActivity;
 
 import java.util.ArrayList;
 
-public class ProductsActivity extends AppCompatActivity {
+public class ProductsActivity extends Fragment {
 
     RecyclerView recyclerView;
     ProductsRecyclerAdapter mProductsRecyclerAdapter;
     ArrayList<ProductData> mProductDataArrayList;
-    Toolbar mToolbar;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_products);
-        mToolbar = findViewById(R.id.products_toolbar);
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("اسم القسم");
 
-        recyclerView = findViewById(R.id.products_recyclerView);
+    public ProductsActivity() {
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        View rootView = inflater.inflate(R.layout.fragment_products, container, false);
+
+
+        recyclerView = rootView.findViewById(R.id.products_recyclerView);
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         }
         else {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         }
 
         mProductDataArrayList = new ArrayList<>();
@@ -46,16 +51,19 @@ public class ProductsActivity extends AppCompatActivity {
         mProductDataArrayList.add(new ProductData(R.drawable.libraries,"منتج 1","150 $"));
         mProductDataArrayList.add(new ProductData(R.drawable.accessories,"منتج 9","10 $"));
 
-
-        mProductsRecyclerAdapter = new ProductsRecyclerAdapter(mProductDataArrayList, new ProductsRecyclerAdapter.OnItemClickListener(){
+        mProductsRecyclerAdapter = new ProductsRecyclerAdapter(mProductDataArrayList,
+                new ProductsRecyclerAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(ProductData productData) {
-                startActivity(new Intent(ProductsActivity.this, ProductDetailActivity.class));
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.main_frameLayout, new ProductDetailActivity()).commit();
             }
         });
 
         recyclerView.setAdapter(mProductsRecyclerAdapter);
         mProductsRecyclerAdapter.notifyDataSetChanged();
+
+        return rootView;
 
     }
 }

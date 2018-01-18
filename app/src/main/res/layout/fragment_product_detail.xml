@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.spectraapps.tohfa.product.ProductDetailActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/productDetail_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
-        app:layout_collapseMode="pin"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title=" "
-        app:titleTextColor="@android:color/white" />
+    tools:context="com.spectraapps.tohfa.product.productdetail.ProductDetailActivity">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -27,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDetail_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -202,8 +192,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginEnd="8dp"
                         android:gravity="end"
-                        android:textColor="@android:color/black"
                         android:text="الخامة:"
+                        android:textColor="@android:color/black"
                         android:textSize="20sp"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -307,16 +297,16 @@
                     android:id="@+id/button_addtocart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="إضافة"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:layout_alignParentBottom="true"
                     android:background="@android:color/holo_green_light"
                     android:drawableStart="@drawable/ic_cart_24dp"
-                    android:layout_alignParentBottom="true"/>
+                    android:text="إضافة"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>
+</FrameLayout>

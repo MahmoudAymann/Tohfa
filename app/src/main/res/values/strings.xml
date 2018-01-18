@@ -17,4 +17,5 @@
     <string name="title_test">toolbar_title</string>
     <string name="toolbaricon">toolbaricon</string>
     <string name="delete">delete</string>
+    <string name="product_detail">بيانات المنتج</string>
 </resources>

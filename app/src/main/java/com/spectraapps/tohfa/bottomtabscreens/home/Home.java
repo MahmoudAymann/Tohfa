@@ -58,7 +58,8 @@ public class Home extends Fragment {
         mHomeRecyclerAdapter = new HomeRecyclerAdapter(mHomeDataArrayList, new HomeRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(HomeData homeData) {
-                startActivity(new Intent(getActivity(), ProductsActivity.class));
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.main_frameLayout, new ProductsActivity()).commit();
             }
         });
 
